@@ -1,15 +1,15 @@
 @import url('https://googleapis.com');
 
 :root {
-  --bg: #fdf6f6;
-  --paper: #ffffff;
-  --rose: #e2abb6;
-  --rose-dark: #b87383;
-  --rose-light: #f8f1f2;
-  --ink: #4a3b3e;
-  --muted: #8a7579;
-  --line: #f3abb8;
-  --gold: #efc53c;
+  --bg: #f9f5f0;          /* Creme suave e elegante para o fundo geral */
+  --paper: #ffffff;       /* Branco puro para o fundo do convite interno */
+  --rose: #e8b4bc;        /* Rosa Quartzo/Rose Gold para detalhes e bordas */
+  --rose-dark: #801824;   /* Vermelho Bordô/Borgonha para textos fortes e títulos */
+  --rose-light: #fdf2f4;  /* Rosa bem clarinho para caixas de destaque e tags */
+  --ink: #2b1a1c;         /* Castanho muito escuro/Preto suave para leitura confortável */
+  --muted: #6e5659;       /* Rosa acinzentado para textos secundários */
+  --line: #f0d5da;        /* Linha divisória rosa suave */
+  --gold: #d4af37;        /* Dourado para pequenos apontamentos de brilho */
   --serif: "Playfair Display", Georgia, serif;
   --sans: "DM Sans", Arial, sans-serif;
 }
@@ -21,95 +21,175 @@ body {
   min-height: 100vh;
   color: var(--ink);
   background:
-    radial-gradient(ellipse at 10% 10%, rgba(226,180,189,.3), transparent 40%),
-    radial-gradient(ellipse at 90% 80%, rgba(184,115,131,.15), transparent 40%),
+    radial-gradient(ellipse at 10% 10%, rgba(232,180,188,.25), transparent 40%),
+    radial-gradient(ellipse at 90% 80%, rgba(128,24,36,.05), transparent 40%),
     var(--bg);
   font-family: var(--sans);
   overflow-x: hidden;
 }
 button, a { font: inherit; }
-main { width: min(100% - 32px, 540px); margin: 0 auto; position: relative; z-index: 1; }
+main { width: min(100% - 16px, 960px); margin: 0 auto; position: relative; z-index: 1; }
 
-/* ENVELOPE */
+/* ✉️ ENVELOPE COM ABERTURA LATERAL DIREITA EM 3D */
 .intro { min-height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 40px 0; }
 .eyebrow { color: var(--rose-dark); letter-spacing: .22em; font-size: .66rem; font-weight: 600; text-transform: uppercase; }
-h1 { font: 400 clamp(2rem, 7vw, 3.2rem)/1.2 var(--serif); margin: 20px 0 14px; }
+h1 { font: 400 clamp(2rem, 7vw, 3.2rem)/1.2 var(--serif); margin: 20px 0 14px; color: var(--rose-dark); }
 h1 em { color: var(--rose-dark); font-style: italic; }
 .intro-copy { color: var(--muted); font-size: .92rem; max-width: 330px; line-height: 1.6; }
-.envelope-button { border: 0; background: transparent; padding: 0; margin-top: 30px; cursor: pointer; color: var(--ink); }
-.envelope { display: block; width: min(78vw, 340px); height: 218px; position: relative; filter: drop-shadow(0 15px 25px rgba(184,115,131,.15)); perspective: 900px; }
-.envelope-back { position: absolute; inset: 0; background: rgb(225, 121, 121); border-radius: 6px; }
-.letter { position: absolute; width: 88%; height: 88%; left: 6%; top: 4%; background: var(--paper); display: flex; flex-direction: column; align-items: center; justify-content: center; transition: transform 1s .25s ease; z-index: 2; border: 1px solid #f7ecea; }
-.letter-small { letter-spacing: .2em; font-size: .55rem; color: var(--muted); }
-.letter-names { font: 600 1.5rem var(--serif); color: var(--rose-dark); margin: 6px 0; }
-.letter-date { font-size: .6rem; letter-spacing: .15em; color: var(--muted); }
-.envelope-front { position: absolute; inset: 0; z-index: 3; background: linear-gradient(145deg, #e67a8a, #e996a3); clip-path: polygon(0 0, 50% 57%, 100% 0, 100% 100%, 0 100%); border-radius: 6px; }
-.envelope-flap { position: absolute; inset: 0; z-index: 4; background: #e66d7f; clip-path: polygon(0 0, 100% 0, 50% 60%); transform-origin: top; transition: transform .8s ease; backface-visibility: hidden; }
-.wax-seal { position: absolute; z-index: 5; left: 50%; top: 49%; transform: translate(-50%,-50%); width: 44px; height: 44px; border-radius: 50%; background: var(--rose-dark); color: #fff; display: grid; place-items: center; font: 1rem var(--serif); box-shadow: 0 4px 10px rgba(184,115,131,0.3); }
-.wax-seal span { font-size: .75rem; font-weight: 600; margin: 0 1px; }
+
+.envelope-button { border: 0; background: transparent; padding: 0; margin-top: 30px; cursor: pointer; position: relative; color: var(--ink); }
+.envelope { 
+  display: block; 
+  width: min(82vw, 340px); 
+  height: 218px; 
+  position: relative; 
+  perspective: 1200px;
+}
+
+/* Divisão Vertical do Envelope (Vermelho com toque Rosa) */
+.env-half {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  background: linear-gradient(145deg, #94222f, #70111c);
+  z-index: 4;
+  transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+  border: 1px solid var(--rose);
+  overflow: hidden;
+}
+
+.env-left {
+  left: 0;
+  width: 50%;
+  border-radius: 6px 0 0 6px;
+  border-right: none;
+}
+
+.env-right {
+  right: 0;
+  width: 50%;
+  border-radius: 0 6px 6px 0;
+  border-left: none;
+}
+
+/* Simulação do rasgo serrilhado vertical na junção */
+.env-right::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; width: 6px; height: 100%;
+  background-image: linear-gradient(45deg, transparent 33.33%, var(--bg) 33.33%, var(--bg) 66.66%, transparent 66.66%), linear-gradient(-45deg, transparent 33.33%, var(--bg) 33.33%, var(--bg) 66.66%, transparent 66.66%);
+  background-size: 24px 12px;
+}
+
+.env-text-preview {
+  position: absolute;
+  width: 200%;
+  top: 45%;
+  font-family: var(--serif);
+  color: #ffffff;
+  font-weight: 600;
+}
+.env-left .env-text-preview { left: 20px; text-align: left; font-size: 1.3rem; letter-spacing: 1px; color: var(--rose); }
+.env-right .env-text-preview { right: 20px; text-align: right; font-size: 0.65rem; letter-spacing: 2px; color: #f9f5f0; }
+
+/* Lacre de Cera Vermelho Escuro */
+.wax-seal { 
+  position: absolute; z-index: 5; 
+  left: 50%; top: 50%; transform: translate(-50%,-50%) scale(1); 
+  width: 44px; height: 44px; border-radius: 50%; 
+  background: var(--rose-dark); color: #fff; 
+  display: grid; place-items: center; 
+  font: 1rem var(--serif); 
+  box-shadow: 0 4px 10px rgba(128,24,36,0.3);
+  transition: transform 0.6s ease, opacity 0.4s ease;
+}
+.wax-seal span { font-size: .75rem; font-weight: 600; margin: 0 1px; color: #ffffff; }
 .open-hint { display: block; margin-top: 24px; font-size: .75rem; color: var(--muted); letter-spacing: .04em; }
-.envelope-button:hover .envelope { transform: translateY(-4px); transition: .2s; }
-.envelope-button.opened .envelope-flap { transform: rotateX(180deg); }
-.envelope-button.opened .letter { transform: translateY(-95px); }
-.envelope-button.opened .wax-seal { opacity: 0; transition: opacity .2s; }
 
-/* CONVITE */
+/* Animação Lateral do Envelope */
+.envelope-button.opened .env-left {
+  transform: translateX(-40%) rotateY(-20deg);
+  opacity: 0.8;
+}
+.envelope-button.opened .env-right {
+  transform: translateX(120%) translateZ(200px) rotateY(30deg);
+}
+.envelope-button.opened .wax-seal {
+  transform: translate(-50%,-50%) scale(0);
+  opacity: 0;
+}
+
+/* 📜 CONVITE INTERNO (DUAS COLUNAS FIXAS) */
 .hidden { display: none !important; }
-.invitation { background: rgb(255, 255, 255); border: 1px solid var(--line); box-shadow: 0 20px 50px rgba(184,115,131,.06); margin: 0 auto 60px; padding: 50px 24px 40px; text-align: center; animation: reveal .9s ease both; border-radius: 16px; }
-@keyframes reveal { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-.ornament { color: var(--rose-dark); font-size: 1.5rem; margin-bottom: 10px; }
-.invitation-lead { color: var(--muted); font: .85rem var(--sans); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
-h2 { font: 600 clamp(2.2rem, 8vw, 3.8rem)/1.1 var(--serif); color: var(--rose-dark); margin: 0 0 16px; }
-h2 span { color: var(--gold); font-size: .8em; font-weight: 400; margin-left: 5px; }
-.invitation-copy { max-width: 400px; margin: 0 auto 30px; color: var(--muted); line-height: 1.7; font-size: 0.95rem; }
+.invitation { 
+  background: var(--paper); 
+  border: 1px solid var(--line); 
+  box-shadow: 0 20px 50px rgba(128,24,36,.06); 
+  margin: 0 auto 40px; 
+  padding: 40px 12px 30px; 
+  text-align: center; 
+  animation: reveal .9s ease both; 
+  border-radius: 16px; 
+}
+@keyframes reveal { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
 
-.photo-frame { width: 100%; max-width: 380px; height: 380px; margin: 0 auto 30px; padding: 8px; border: 1px solid var(--line); background: white; border-radius: 8px; box-shadow: 0 8px 20px rgba(0,0,0,0.02); }
+.invitation-grid { display: grid; grid-template-columns: 1fr 1px 1fr; gap: 12px; align-items: start; }
+.grid-left { grid-column: 1; }
+.grid-divider-vertical { grid-column: 2; background: var(--line); width: 1px; height: 100%; align-self: stretch; opacity: 0.6; }
+.grid-right { grid-column: 3; }
+.rsvp-container-full { grid-column: 1 / span 3; margin-top: 20px; }
+
+/* ELEMENTOS GRÁFICOS */
+.ornament { color: var(--rose-dark); font-size: 1.3rem; margin-bottom: 6px; }
+.invitation-lead { color: var(--muted); font: .85rem var(--sans); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
+h2 { font: 600 clamp(1.4rem, 4.5vw, 2.8rem)/1.1 var(--serif); color: var(--rose-dark); margin: 0 0 10px; }
+h2 span { color: var(--rose); font-size: .8em; font-weight: 400; margin-left: 5px; }
+.invitation-copy { max-width: 100%; margin: 0 auto 15px; color: var(--muted); line-height: 1.6; font-size: 0.85rem; }
+
+.photo-frame { width: 100%; max-width: 100%; height: auto; aspect-ratio: 4/3; margin: 0 auto 15px; padding: 4px; border: 1px solid var(--line); background: white; border-radius: 8px; }
 .photo-frame img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 4px; }
+.date-panel { display: flex; justify-content: center; align-items: center; gap: 8px; margin: 10px auto 5px; }
+.date-day { font: 600 clamp(2rem, 6vw, 3.2rem)/1 var(--serif); color: var(--rose-dark); }
+.date-month-year { display: flex; flex-direction: column; text-align: left; border-left: 1px solid var(--rose); padding-left: 8px; letter-spacing: .1em; font-size: 0.65rem; gap: 2px; }
+.event-time { color: var(--ink); font-size: .8rem; font-weight: 500; margin-bottom: 4px; }
+.dress-code { color: var(--muted); font-size: 0.72rem; }
 
-.date-panel { display: flex; justify-content: center; align-items: center; gap: 15px; margin: 20px auto 10px; }
-.date-day { font: 600 3.8rem/.95 var(--serif); color: var(--rose-dark); }
-.date-month-year { display: flex; flex-direction: column; text-align: left; border-left: 1px solid var(--gold); padding-left: 15px; letter-spacing: .15em; font-size: .75rem; gap: 5px; }
-.event-time { color: var(--ink); font-size: .95rem; font-weight: 500; margin-bottom: 8px; }
-.dress-code { color: var(--muted); font-size: 0.82rem; margin-top: 5px; }
+.countdown { display: flex; justify-content: center; gap: 6px; margin: 15px 0; }
+.countdown div { display: flex; flex-direction: column; gap: 2px; min-width: 32px; }
+.countdown strong { font: 1.1rem var(--serif); color: var(--rose-dark); }
+.countdown span { font-size: .5rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
 
-.section-divider { color: var(--rose); margin: 30px 0; display: flex; align-items: center; gap: 14px; }
-.section-divider:before, .section-divider:after { content: ""; height: 1px; background: var(--line); flex: 1; }
+.detail-section { padding: 5px 0 15px; }
+h3 { font: 400 1.25rem var(--serif); color: var(--rose-dark); margin: 5px 0 12px; }
+.schedule { width: 100%; }
+.schedule-row { display: grid; grid-template-columns: 45px 1fr; gap: 8px; text-align: left; padding: 8px 2px; border-bottom: 1px solid var(--line); }
+.schedule-time { color: var(--rose-dark); font-weight: 600; font-size: .7rem; }
+.schedule-title { font: 600 0.8rem var(--sans); color: var(--ink); display: block; }
+.schedule-note { display: block; color: var(--muted); font-size: .65rem; margin-top: 2px; line-height: 1.3; }
 
-.detail-section { padding: 10px 0; }
-h3 { font: 400 1.75rem var(--serif); color: var(--rose-dark); margin: 6px 0 20px; }
-
-.schedule { max-width: 420px; margin: auto; }
-.schedule-row { display: grid; grid-template-columns: 70px 1fr; gap: 15px; text-align: left; padding: 14px 4px; border-bottom: 1px solid #fbf2f3; }
-.schedule-time { color: var(--rose-dark); font-weight: 600; font-size: .85rem; }
-.schedule-title { font: 600 0.95rem var(--sans); color: var(--ink); display: block; }
-.schedule-note { display: block; color: var(--muted); font-size: .8rem; margin-top: 3px; }
-
-.venue-name { font: 600 1.15rem var(--sans); margin-bottom: 5px; color: var(--ink); }
-.venue-address { color: var(--muted); font-size: .85rem; margin-bottom: 22px; }
-
-.outline-button { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; border-radius: 999px; padding: 12px 24px; font-size: .8rem; font-weight: 500; transition: .2s; border: 1px solid var(--rose-dark); color: var(--rose-dark); }
+.venue-name { font: 600 0.95rem var(--sans); margin-bottom: 3px; color: var(--ink); }
+.venue-address { color: var(--muted); font-size: .7rem; margin-bottom: 12px; line-height: 1.3; }
+.outline-button, .whatsapp-button { display: inline-flex; align-items: center; justify-content: center; gap: 6px; text-decoration: none; border-radius: 999px; padding: 10px 14px; font-size: .7rem; transition: .2s; }
+.outline-button { border: 1px solid var(--rose-dark); color: var(--rose-dark); background: transparent; font-weight: 500; width: 100%; }
 .outline-button:hover { background: var(--rose-light); }
 
-/* TAG DE BOAS VINDAS (IGUAL À FOTO) */
-.rsvp-welcome-box { background: var(--paper); border: 1px dashed var(--rose); padding: 22px 15px; border-radius: 8px; margin: 35px auto 20px; max-width: 440px; }
-.rsvp-welcome-box h4 { font-family: var(--serif); font-size: 1.4rem; color: var(--rose-dark); margin: 5px 0 10px; font-weight: 500; }
-.vagas-tag { display: inline-flex; align-items: center; gap: 6px; background: var(--rose-light); padding: 5px 12px; border-radius: 20px; font-size: 0.78rem; color: var(--rose-dark); font-weight: 600; }
+/* SEÇÃO DE CONFIRMAÇÃO (Creme e Rosa) */
+.rsvp-section { background: var(--bg); padding: 25px 12px; border-radius: 12px; border: 1px solid var(--line); max-width: 460px; margin: 15px auto 0; }
+.rsvp-section h3 { margin-bottom: 8px; color: var(--rose-dark); font-size: 1.3rem; }
+.rsvp-section p { color: var(--muted); font-size: .78rem; line-height: 1.5; }
+.whatsapp-button { background: #557b62; color: white; font-weight: 600; padding: 12px 24px; box-shadow: 0 5px 14px rgba(85,123,98,0.25); width: 100%; max-width: 280px; margin: 0 auto; }
+.whatsapp-button:hover { background: #41664e; }
 
-/* SEÇÃO WHATSAPP */
-.rsvp-section { background: #fdf5f6; margin: 20px 0; padding: 30px 20px; border-radius: 12px; border: 1px solid #f3e2e4; }
-.rsvp-section h3 { margin-bottom: 8px; font-family: var(--serif); }
-.rsvp-section p { color: var(--muted); font-size: .88rem; line-height: 1.6; margin-bottom: 20px; }
-.whatsapp-button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; border-radius: 999px; background: #557b62; color: white; font-weight: 600; padding: 15px 32px; font-size: .95rem; box-shadow: 0 6px 15px rgba(85,123,98,0.25); transition: .2s; width: 100%; max-width: 320px; }
-.whatsapp-button:hover { background: #41664e; transform: translateY(-1px); }
-
-footer { padding-top: 25px; color: var(--muted); font-size: .85rem; }
-
-/* Decorações fluídas */
-.petal { position: fixed; width: 150px; height: 150px; border-radius: 65% 0 65% 0; background: rgba(226,180,189,.1); filter: blur(2px); pointer-events: none; }
+.status-options { display: flex; gap: 10px; margin: 15px auto; max-width: 320px; }
+.status-card { flex: 1; cursor: pointer; }
+.status-card input[type="radio"] { display: none; }
+.card-content { border: 1px solid var(--line); padding: 10px; border-radius: 6px; display: flex; flex-direction: column; align-items: center; gap: 4px; background: white; transition: all 0.2s ease; font-size: 0.8rem; color: var(--ink); }
+.status-card input[type="radio"]:checked + .card-content { border-color: var(--rose-dark); background: var(--rose-light); color: var(--rose-dark); font-weight: 600; box-shadow: 0 3px 8px rgba(128, 24, 36, 0.15); }
+.rsvp-welcome-box { background: var(--paper); border: 1px dashed var(--rose); padding: 15px 10px; border-radius: 6px; margin: 10px auto 15px; max-width: 360px; }
+.rsvp-welcome-box h4 { font-family: var(--serif); font-size: 1.15rem; color: var(--rose-dark); margin: 4px 0 6px; }
+.vagas-tag { display: inline-flex; align-items: center; gap: 4px; background: var(--rose-light); padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; color: var(--rose-dark); font-weight: 600; }
+.rsvp-select { width: 100%; max-width: 320px; padding: 10px; border: 1px solid var(--line); border-radius: 6px; background: white; font-family: var(--sans); font-size: 0.8rem; }
+footer { padding-top: 15px; color: var(--muted); font-size: .85rem; margin-top: 25px; }
+.petal { position: fixed; width: 120px; height: 120px; border-radius: 65% 0 65% 0; background: rgba(232,180,188,.15); filter: blur(1px); pointer-events: none; }
 .petal-one { top: -60px; left: -60px; transform: rotate(15deg); }
-.petal-two { right: -70px; bottom: 8%; transform: rotate(195deg); }
-
-@media (max-width: 480px) {
-  .invitation { padding: 40px 16px; }
-  .photo-frame { height: 300px; }
-}
+.petal-two { right: -60px; bottom: 8%; transform: rotate(195deg); }

@@ -1,18 +1,18 @@
 document.addEventListener("DOMContentLoaded", () => {
   const $ = (id) => document.getElementById(id);
 
-  // 1. CAPTURA DOS PARÂMETROS DA URL
+  // 1. CAPTURA DOS PARÂMETROS DINÂMICOS DA URL
   const urlParams = new URLSearchParams(window.location.search);
-  let nomeConvidado = urlParams.get('nome') || "fabiao Joao ";
-  let totalVagas = parseInt(urlParams.get('vagas')) || 1;
+  let nomeConvidado = urlParams.get('nome') || "Convidado Especial";
+  let totalVagas = parseInt(urlParams.get('vagas')) || 2; 
 
-  // Injetar dados lidos diretamente no bloco inferior
+  // Injetar dados lidos diretamente no painel inferior
   $("nomeConvidadoTela").textContent = nomeConvidado;
   $("textoVagasTela").textContent = totalVagas > 1 
     ? `Este convite é válido para até ${totalVagas} pessoas.` 
     : `Este convite é válido para 1 pessoa.`;
 
-  // 2. CONTROLO DO SELETOR DE VAGAS COM BASE NO LINK
+  // 2. CONTROLO DO SELETOR DE VAGAS ADICIONAIS
   const wrapperAcompanhantes = $("wrapperAcompanhantes");
   const selectAcompanhantes = $("selectAcompanhantes");
   const radioSim = $("radioSim");
@@ -39,8 +39,8 @@ document.addEventListener("DOMContentLoaded", () => {
     selectAcompanhantes.value = ""; 
   });
 
-  // 3. ENVIO DOS DADOS DIRETO PARA O WHATSAPP DA ANA LÚCIA
-  const whatsappDono = "258841234567"; // Insere o número com o indicativo do país
+  // 3. DISPARO DE MENSAGEM CONFIGURADA DIRETO PARA O WHATSAPP
+  const whatsappDono = "258841234567"; // Número padrão de Moçambique
 
   $("whatsappLink").addEventListener("click", (e) => {
     e.preventDefault();
@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
     window.open(urlFinal, '_blank');
   });
 
-  // 4. ANIMAÇÃO DO ENVELOPE
+  // 4. ANIMAÇÃO DE ABERTURA HORIZONTAL DO ENVELOPE
   $("openEnvelope").addEventListener("click", () => {
     const button = $("openEnvelope");
     if (button.classList.contains("opened")) return;
@@ -78,6 +78,31 @@ document.addEventListener("DOMContentLoaded", () => {
       $("invitation").classList.remove("hidden");
       $("invitation").scrollIntoView({ behavior: "smooth", block: "start" });
       $("openHint").textContent = "Convite aberto";
-    }, 850);
+    }, 1100); // 1.1 segundos sincronizados perfeitamente com o deslizar em 3D
   });
+
+  // 5. CONTAGEM DECRESCENTE DO RELÓGIO (Festa a 21 de Novembro de 2026)
+  const dataEvento = new Date("2026-11-21T14:00:00").getTime();
+
+  function updateCountdown() {
+    const diff = dataEvento - Date.now();
+
+    if (diff <= 0) {
+      $("countdown").innerHTML = "<p style='color:var(--rose-dark); font-weight:600;'>É hoje! Chegou o grande dia! ♡</p>";
+      return;
+    }
+
+    const dias = Math.floor(diff / 86400000);
+    const horas = Math.floor((diff % 86400000) / 3600000);
+    const minutos = Math.floor((diff % 3600000) / 60000);
+    const segundos = Math.floor((diff % 60000) / 1000);
+
+    $("days").textContent = String(dias).padStart(2, "0");
+    $("hours").textContent = String(horas).padStart(2, "0");
+    $("minutes").textContent = String(minutos).padStart(2, "0");
+    $("seconds").textContent = String(segundos).padStart(2, "0");
+  }
+
+  updateCountdown();
+  window.setInterval(updateCountdown, 1000);
 });
