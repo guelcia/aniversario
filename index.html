@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aniversário Ana Lúcia | 25 Anos</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="petal petal-one"></div>
+  <div class="petal petal-two"></div>
+
+  <main>
+    <!-- 1. ENVELOPE ANIMADO -->
+    <section class="intro" id="introSection">
+      <span class="eyebrow">Um convite exclusivo</span>
+      <h1>Ana Lúcia<br><em>Celebrando os 25.</em></h1>
+      <p class="intro-copy">Meio quarto de século merece uma festa inesquecível!</p>
+      
+      <button class="envelope-button" id="openEnvelope" aria-label="Abrir convite">
+        <div class="envelope">
+          <div class="envelope-back"></div>
+          <div class="letter">
+            <span class="letter-small">SUNSET PARTY</span>
+            <div class="letter-names" id="envelopeNames">Ana Lúcia</div>
+            <span class="letter-date">MATOLA · 14H</span>
+          </div>
+          <div class="envelope-front"></div>
+          <div class="envelope-flap"></div>
+          <div class="wax-seal"><span>A</span>&amp;<span>L</span></div>
+        </div>
+        <span class="open-hint" id="openHint">Toca no envelope para abrir</span>
+      </button>
+    </section>
+
+    <!-- 2. CONVITE PRINCIPAL -->
+    <article class="invitation hidden" id="invitation">
+      <div class="ornament">✨</div>
+      <p class="invitation-lead">Cheers to 25 years</p>
+      <h2>Ana Lúcia <span>25</span></h2>
+      <p class="invitation-copy">"Meio quarto de século merece uma celebração inesquecível! Venha comemorar comigo o início deste novo capítulo."</p>
+
+      <div class="photo-frame">
+        <img id="couplePhoto" src="foto/nicholas-wilson-IEKzl2ihe8I-unsplash.jpg" alt="Ana Lúcia">
+      </div>
+
+      <div class="date-panel">
+        <div class="date-day">21</div>
+        <div class="date-month-year">
+          <strong>NOVEMBRO</strong>
+          <span>2026</span>
+        </div>
+      </div>
+      <div class="event-time">Sábado · Das 14h00 às 22h00</div>
+      <div class="dress-code">👗 <strong>Dress Code:</strong> Casual Elegante</div>
+
+      <div class="section-divider">✧</div>
+
+      <!-- PROGRAMA / ITINERÁRIO -->
+      <section class="detail-section">
+        <span class="eyebrow">Lineup da Festa</span>
+        <h3>O que vai rolar</h3>
+        <div class="schedule">
+          <div class="schedule-row">
+            <span class="schedule-time">14h00</span>
+            <span><span class="schedule-title">Welcome Drinks</span><span class="schedule-note">Receção dos convidados e shots de boas-vindas</span></span>
+          </div>
+          <div class="schedule-row">
+            <span class="schedule-time">16h00</span>
+            <span><span class="schedule-title">Sunset Cocktail &amp; Finger Food</span><span class="schedule-note">Muita conversa, música boa e petiscos</span></span>
+          </div>
+          <div class="schedule-row">
+            <span class="schedule-time">18h30</span>
+            <span><span class="schedule-title">Pista Aberta</span><span class="schedule-note">O DJ assume o controlo da noite</span></span>
+          </div>
+          <div class="schedule-row">
+            <span class="schedule-time">20h30</span>
+            <span><span class="schedule-title">Parabéns e Brinde</span><span class="schedule-note">Hora do bolo e de celebrar a vida</span></span>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider">✦</div>
+
+      <!-- LOCALIZAÇÃO -->
+      <section class="detail-section">
+        <span class="eyebrow">Localização</span>
+        <h3>Onde será a festa</h3>
+        <div class="venue-name">Salão Requinte da Matola</div>
+        <div class="venue-address">Av. União das Nações, Matola, Moçambique</div>
+        <a href="https://google.com" class="outline-button" target="_blank" rel="noopener">
+          Abrir no Google Maps ↗
+        </a>
+      </section>
+
+      <div class="section-divider">♡</div>
+
+      <!-- SECÇÃO ÚNICA DE CONFIRMAÇÃO COM OS CARDS EM BAIXO -->
+      <section class="rsvp-section">
+        <span class="eyebrow" style="font-size: 0.65rem;">Este convite foi preparado para</span>
+        <h4 id="nomeConvidadoTela" style="font-family: var(--serif); font-size: 1.4rem; color: var(--rose-dark); margin: 5px 0 10px; font-weight: 500;">A carregar...</h4>
+        
+        <div class="vagas-tag" style="margin-bottom: 20px;">
+          <span>👥</span> <span id="textoVagasTela">Válido para...</span>
+        </div>
+
+        <h3>Contamos contigo?</h3>
+        <p>Por favor, seleciona uma opção abaixo para responder via WhatsApp até ao dia <strong>10 de Novembro de 2026</strong>.</p>
+        
+        <!-- Cards de Opções Sim e Não -->
+        <div class="status-options">
+          <label class="status-card">
+            <input type="radio" name="escolhaPresenca" value="Sim" id="radioSim">
+            <div class="card-content">
+              <span class="status-icon">✓</span>
+              <span>Sim, irei!</span>
+            </div>
+          </label>
+
+          <label class="status-card">
+            <input type="radio" name="escolhaPresenca" value="Não" id="radioNao">
+            <div class="card-content">
+              <span class="status-icon">✕</span>
+              <span>Não poderei ir</span>
+            </div>
+          </label>
+        </div>
+
+        <!-- Seletor numérico de acompanhantes -->
+        <div id="wrapperAcompanhantes" class="hidden">
+          <label for="selectAcompanhantes" class="field-label">Quantas pessoas irão no total (incluindo você)?</label>
+          <select id="selectAcompanhantes" class="rsvp-select"></select>
+        </div>
+
+        <a href="#" class="whatsapp-button" id="whatsappLink" style="margin-top: 20px;">
+          <span>📱</span> Responder por WhatsApp
+        </a>
+      </section>
+
+      <footer>
+        <span>Mal posso esperar para celebrar contigo!</span>
+      </footer>
+    </article>
+  </main>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
