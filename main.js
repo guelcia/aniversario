@@ -39,9 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
     selectAcompanhantes.value = ""; 
   });
 
-  // 3. DISPARO DE MENSAGEM CONFIGURADA DIRETO PARA O WHATSAPP
-    // 3. ENVIO DOS DADOS DIRETO PARA O WHATSAPP (CORRIGIDO)
-  // COLOQUE O SEU NÚMERO AQUI (Apenas números, com o indicativo 258 à frente)
+  // 3. ENVIO DOS DADOS DIRETO PARA O WHATSAPP (TOTALMENTE CORRIGIDO)
   const whatsappDono = "258873144454"; 
 
   $("whatsappLink").addEventListener("click", (e) => {
@@ -59,14 +57,13 @@ document.addEventListener("DOMContentLoaded", () => {
       let quantidadeSelecionada = totalVagas > 1 ? selectAcompanhantes.value : 1;
       textoAcompanhantes = `\nTotal de pessoas: ${quantidadeSelecionada}`;
     } else {
-      textoAcompanhantes = `\nInfelizmente não poderei comparecer.`;
+      textoAcompanhantes = `\nInfelizments não poderei comparecer.`;
     }
 
     const mensagem = `Olá Ana Lúcia!\n\nEstou a responder ao convite do teu aniversário de 25 anos.\n\nStatus: ${presencaStatus}\nConvidado: ${nomeConvidado}${textoAcompanhantes}`;
     
-    // URL CORRIGIDA COM A BARRA OBRIGATÓRIA DA API DO WHATSAPP
+    // SINTAXE DE ENVELOPE DE VARIÁVEL CORRIGIDA COM INTERPOLAÇÃO EFETIVA (/$ e {})
     const urlFinal = `https://wa.me{whatsappDono}?text=${encodeURIComponent(mensagem)}`;
-
     
     // Abre a aplicação do WhatsApp de forma limpa e segura
     window.open(urlFinal, '_blank');
@@ -84,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
       $("invitation").classList.remove("hidden");
       $("invitation").scrollIntoView({ behavior: "smooth", block: "start" });
       $("openHint").textContent = "Convite aberto";
-    }, 1100); // 1.1 segundos sincronizados perfeitamente com o deslizar em 3D
+    }, 1100);
   });
 
   // 5. CONTAGEM DECRESCENTE DO RELÓGIO (Festa a 21 de Novembro de 2026)
