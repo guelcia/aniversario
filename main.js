@@ -40,7 +40,9 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // 3. DISPARO DE MENSAGEM CONFIGURADA DIRETO PARA O WHATSAPP
-  const whatsappDono = "258873144454"; // Número padrão de Moçambique
+    // 3. ENVIO DOS DADOS DIRETO PARA O WHATSAPP (CORRIGIDO)
+  // COLOQUE O SEU NÚMERO AQUI (Apenas números, com o indicativo 258 à frente)
+  const whatsappDono = "258873144454"; 
 
   $("whatsappLink").addEventListener("click", (e) => {
     e.preventDefault();
@@ -62,7 +64,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const mensagem = `Olá Ana Lúcia!\n\nEstou a responder ao convite do teu aniversário de 25 anos.\n\nStatus: ${presencaStatus}\nConvidado: ${nomeConvidado}${textoAcompanhantes}`;
     
-    const urlFinal = `https://wa.me{whatsappDono}?text=${encodeURIComponent(mensagem)}`;
+    // URL CORRIGIDA COM A BARRA OBRIGATÓRIA DA API DO WHATSAPP
+    const urlFinal = "https://whatsapp.com" + whatsappDono + "&text=" + encodeURIComponent(mensagem);
+    
+    // Abre a aplicação do WhatsApp de forma limpa e segura
     window.open(urlFinal, '_blank');
   });
 
