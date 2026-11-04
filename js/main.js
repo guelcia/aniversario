@@ -4,12 +4,12 @@ document.addEventListener("DOMContentLoaded", () => {
   // 1. CAPTURA DOS PARÂMETROS DINÂMICOS DA URL
   const urlParams = new URLSearchParams(window.location.search);
   let nomeConvidado = urlParams.get('nome') || "Convidado Especial";
-  let totalVagas = parseInt(urlParams.get('vagas')) || 2; 
+  let totalVagas = parseInt(urlParams.get('vagas')) || 2;
 
   // Injetar dados lidos diretamente no painel inferior
   $("nomeConvidadoTela").textContent = nomeConvidado;
-  $("textoVagasTela").textContent = totalVagas > 1 
-    ? `Este convite é válido para até ${totalVagas} pessoas.` 
+  $("textoVagasTela").textContent = totalVagas > 1
+    ? `Este convite é válido para até ${totalVagas} pessoas.`
     : `Este convite é válido para 1 pessoa.`;
 
   // 2. CONTROLO DO SELETOR DE VAGAS ADICIONAIS
@@ -36,15 +36,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   radioNao.addEventListener("change", () => {
     wrapperAcompanhantes.classList.add("hidden");
-    selectAcompanhantes.value = ""; 
+    selectAcompanhantes.value = "";
   });
 
-  // 3. ENVIO DOS DADOS DIRETO PARA O WHATSAPP (TOTALMENTE CORRIGIDO)
-  const whatsappDono = "258873144454"; 
+  // 3. ENVIO DOS DADOS DIRETO PARA O WHATSAPP
+  const whatsappDono = "258873144454";
 
   $("whatsappLink").addEventListener("click", (e) => {
     e.preventDefault();
-    
+
     if (!radioSim.checked && !radioNao.checked) {
       alert("Por favor, seleciona se vais comparecer ou não antes de enviar!");
       return;
@@ -57,15 +57,13 @@ document.addEventListener("DOMContentLoaded", () => {
       let quantidadeSelecionada = totalVagas > 1 ? selectAcompanhantes.value : 1;
       textoAcompanhantes = `\nTotal de pessoas: ${quantidadeSelecionada}`;
     } else {
-      textoAcompanhantes = `\nInfelizments não poderei comparecer.`;
+      textoAcompanhantes = `\nInfelizmente não poderei comparecer.`;
     }
 
     const mensagem = `Olá Ana Lúcia!\n\nEstou a responder ao convite do teu aniversário de 25 anos.\n\nStatus: ${presencaStatus}\nConvidado: ${nomeConvidado}${textoAcompanhantes}`;
-    
-    // SINTAXE DE ENVELOPE DE VARIÁVEL CORRIGIDA COM INTERPOLAÇÃO EFETIVA (/$ e {})
-   const urlFinal = `https://wa.me/${whatsappDono}?text=${encodeURIComponent(mensagem)}`;
-    
-    // Abre a aplicação do WhatsApp de forma limpa e segura
+
+    const urlFinal = `https://wa.me/${whatsappDono}?text=${encodeURIComponent(mensagem)}`;
+
     window.open(urlFinal, '_blank');
   });
 
@@ -73,10 +71,10 @@ document.addEventListener("DOMContentLoaded", () => {
   $("openEnvelope").addEventListener("click", () => {
     const button = $("openEnvelope");
     if (button.classList.contains("opened")) return;
-    
+
     button.classList.add("opened");
     $("openHint").textContent = "A abrir o teu convite…";
-    
+
     window.setTimeout(() => {
       $("invitation").classList.remove("hidden");
       $("invitation").scrollIntoView({ behavior: "smooth", block: "start" });
@@ -108,4 +106,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
   updateCountdown();
   window.setInterval(updateCountdown, 1000);
+
+  // 6. DOWNLOAD DO CONVITE EM PDF (link direto para o ficheiro)
+  const botaoPdf = $("downloadPdf");
+
+  if (botaoPdf) {
+    botaoPdf.addEventListener("click", (e) => {
+      // Se o botão for um <a>, deixa o browser tratar do download.
+      // Se for um <button>, força o download via window.location.
+      if (botaoPdf.tagName === "A") {
+        // Já tem href="convite.pdf" e download — nada a fazer.
+        return;
+      }
+
+      e.preventDefault();
+      const link = document.createElement("a");
+      link.href = "convite.pdf";
+      link.download = "Convite-Ana-Lucia-25-Anos.pdf";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    });
+  }
 });
